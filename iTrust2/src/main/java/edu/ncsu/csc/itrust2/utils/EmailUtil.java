@@ -90,6 +90,13 @@ public class EmailUtil {
         return properties;
     }
 
+    /**
+     * Retrieves the System Email address. This can be used as a known-valid
+     * address to send to rather than hardcoding one. This address is pulled
+     * from the email.properties file
+     *
+     * @return Address from the email.properties file
+     */
     static public final String getSystemEmail () {
         final String email = getEmailProperties().getProperty( "username" );
         return email.contains( "gmail" ) ? email : email + "@gmail.com";
