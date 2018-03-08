@@ -91,7 +91,8 @@ public class EmailUtil {
     }
 
     static public final String getSystemEmail () {
-        return getEmailProperties().getProperty( "username" ) + "@gmail.com";
+        final String email = getEmailProperties().getProperty( "username" );
+        return email.contains( "gmail" ) ? email : email + "@gmail.com";
     }
 
     /**
