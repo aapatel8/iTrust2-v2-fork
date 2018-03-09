@@ -1,6 +1,7 @@
 package edu.ncsu.csc.itrust2.unit;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
@@ -10,9 +11,11 @@ import edu.ncsu.csc.itrust2.models.enums.AppointmentType;
 import edu.ncsu.csc.itrust2.models.enums.HouseholdSmokingStatus;
 import edu.ncsu.csc.itrust2.models.persistent.BasicHealthMetrics;
 import edu.ncsu.csc.itrust2.models.persistent.Diagnosis;
+import edu.ncsu.csc.itrust2.models.persistent.Drug;
 import edu.ncsu.csc.itrust2.models.persistent.Hospital;
 import edu.ncsu.csc.itrust2.models.persistent.ICDCode;
 import edu.ncsu.csc.itrust2.models.persistent.OfficeVisit;
+import edu.ncsu.csc.itrust2.models.persistent.Prescription;
 import edu.ncsu.csc.itrust2.models.persistent.User;
 
 public class OfficeVisitTest {
@@ -38,17 +41,11 @@ public class OfficeVisitTest {
         bhm.save();
 
         visit.setBasicHealthMetrics( bhm );
-
         visit.setType( AppointmentType.GENERAL_CHECKUP );
-
         visit.setHospital( hosp );
-
         visit.setPatient( User.getByName( "AliceThirteen" ) );
-
         visit.setHcp( User.getByName( "AliceThirteen" ) );
-
         visit.setDate( Calendar.getInstance() );
-
         visit.save();
 
         final List<Diagnosis> diagnoses = new Vector<Diagnosis>();
@@ -68,6 +65,34 @@ public class OfficeVisitTest {
         diagnoses.add( diagnosis );
 
         visit.setDiagnoses( diagnoses );
+
+        visit.save();
+
+        final Drug drug = new Drug();
+
+        drug.setCode( "1234-4321-89" );
+        drug.setDescription( "Lithium Compounds" );
+        drug.setName( "Li2O8" );
+        drug.save();
+
+        final Prescription pres = new Prescription();
+        pres.setDosage( 3 );
+        pres.setDrug( drug );
+
+        final Calendar end = Calendar.getInstance();
+        end.add( Calendar.DAY_OF_WEEK, 10 );
+        pres.setEndDate( end );
+        pres.setPatient( User.getByName( "AliceThirteen" ) );
+        pres.setStartDate( Calendar.getInstance() );
+        pres.setRenewals( 5 );
+
+        pres.save();
+
+        visit.setPrescriptions( Collections.singletonList( pres ) );
+
+        visit.save();
+
+        visit.setPrescriptions( Collections.emptyList() );
 
         visit.save();
 
