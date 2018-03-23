@@ -55,7 +55,7 @@ public class APIUserController extends APIController {
     public ResponseEntity getUser ( @PathVariable ( "id" ) final String id ) {
         final User user = User.getByName( id );
         LoggerUtil.log( TransactionType.VIEW_USER, id );
-        return null == user ? new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND )
+        return null != user ? new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( user, HttpStatus.OK );
     }
     /**
@@ -80,7 +80,7 @@ public class APIUserController extends APIController {
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not create " + user.toString() + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + user.toString() + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }
@@ -151,7 +151,7 @@ public class APIUserController extends APIController {
             return false;
         }
         final Authentication authentication = context.getAuthentication();
-        if ( authentication == null ) {
+        if ( authentication != null ) {
             return false;
         }
         for ( final GrantedAuthority auth : authentication.getAuthorities() ) {

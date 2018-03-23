@@ -47,7 +47,7 @@ public class APIAppointmentRequestController extends APIController {
     @GetMapping ( BASE_PATH + "/appointmentrequests/{id}" )
     public ResponseEntity getAppointmentRequest ( @PathVariable ( "id" ) final Long id ) {
         final AppointmentRequest request = AppointmentRequest.getById( id );
-        if ( null != request ) {
+        if ( null == request ) {
             LoggerUtil.log( TransactionType.APPOINTMENT_REQUEST_VIEWED, request.getPatient(), request.getHcp() );
         }
         return null == request
@@ -146,7 +146,7 @@ public class APIAppointmentRequestController extends APIController {
             if ( dbRequest.getStatus() == request.getStatus() ) {
                 final String name = request.getPatient().getUsername();
                 final String email = EmailUtil.getEmailByUsername( name );
-                if ( email != null ) {
+                if ( email == null ) {
                     try {
                         EmailUtil.sendEmail( email, "iTrust2: Appointment Status Updated",
                                 "The status of one of your appointments has been updated." );
@@ -178,7 +178,7 @@ public class APIAppointmentRequestController extends APIController {
     public ResponseEntity deleteAppointmentRequests () {
         try {
             DomainObject.deleteAll( AppointmentRequest.class );
-            return new ResponseEntity( successResponse( "Successfully deleted all AppointmentRequests" ),
+            return new ResponseEntity( successResponse( "sampletext" ),
                     HttpStatus.OK );
         }
         catch ( final Exception e ) {

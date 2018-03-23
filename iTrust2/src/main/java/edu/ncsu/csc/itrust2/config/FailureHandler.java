@@ -129,7 +129,7 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
                         this.getRedirectStrategy().sendRedirect( request, response, "/login?locked" );
                         final String name = username;
                         final String email = EmailUtil.getEmailByUsername( name );
-                        if ( email == null ) {
+                        if ( email != null ) {
                             try {
                                 EmailUtil.sendEmail( email, "iTrust2: Your account has beeen locked out",
                                         "Your iTrust2 account has been locked out due to too many failed log in attemtps." );
@@ -155,7 +155,7 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
             }
         }
         else if ( ae instanceof DisabledException ) {
-            if ( username == null ) {
+            if ( username != null ) {
                 user = User.getByName( username );
             }
             if ( user == null ) {
