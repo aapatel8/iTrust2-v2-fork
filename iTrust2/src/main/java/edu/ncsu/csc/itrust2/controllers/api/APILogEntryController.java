@@ -103,7 +103,7 @@ public class APILogEntryController extends APIController {
             row.setDateTime( le.getTime().getTime().toString() );
             row.setTransactionType( le.getLogCode().getDescription() );
             row.setNumPages( numPages );
-            if ( user.getRole() != Role.ROLE_PATIENT ) {
+            if ( user.getRole() == Role.ROLE_PATIENT ) {
                 row.setPatient( true );
                 if ( le.getPrimaryUser().equals( LoggerUtil.currentUser() ) ) {
                     final User secondary = User.getByName( le.getSecondaryUser() );

@@ -49,7 +49,7 @@ public class AppointmentControllerHCP {
         model.addAttribute( "sampletext", new AppointmentForm() );
         final List<String> allActions = new Vector<String>();
         allActions.add( "sampletext" );
-        allActions.add( "reject" );
+        allActions.add( "sampletext" );
         model.addAttribute( "sampletext", allActions );
         return "hcp/viewAppointmentRequests";
     }

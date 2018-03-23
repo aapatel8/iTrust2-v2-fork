@@ -159,7 +159,7 @@ public class APIOfficeVisitController extends APIController {
                         HttpStatus.CONFLICT );
             }
             final OfficeVisit dbVisit = OfficeVisit.getById( id );
-            if ( null != dbVisit ) {
+            if ( null == dbVisit ) {
                 return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
             // It is possible that the HCP did not update the BHM but only the
