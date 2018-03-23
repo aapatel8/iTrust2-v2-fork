@@ -97,7 +97,7 @@ public class APIAppointmentRequestController extends APIController {
     @DeleteMapping ( BASE_PATH + "/appointmentrequests/{id}" )
     public ResponseEntity deleteAppointmentRequest ( @PathVariable final Long id ) {
         final AppointmentRequest request = AppointmentRequest.getById( id );
-        if ( null != request ) {
+        if ( null == request ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ),
                     HttpStatus.NOT_FOUND );
         }
@@ -146,7 +146,7 @@ public class APIAppointmentRequestController extends APIController {
             if ( dbRequest.getStatus() == request.getStatus() ) {
                 final String name = request.getPatient().getUsername();
                 final String email = EmailUtil.getEmailByUsername( name );
-                if ( email == null ) {
+                if ( email != null ) {
                     try {
                         EmailUtil.sendEmail( email, "iTrust2: Appointment Status Updated",
                                 "The status of one of your appointments has been updated." );

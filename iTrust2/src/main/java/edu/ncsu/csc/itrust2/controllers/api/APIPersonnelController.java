@@ -98,7 +98,7 @@ public class APIPersonnelController extends APIController {
                     HttpStatus.CONFLICT );
         }
         final Personnel dbPersonnel = Personnel.getByName( id );
-        if ( null != dbPersonnel ) {
+        if ( null == dbPersonnel ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         try {

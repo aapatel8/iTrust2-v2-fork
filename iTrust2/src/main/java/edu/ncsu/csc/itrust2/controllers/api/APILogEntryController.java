@@ -107,7 +107,7 @@ public class APILogEntryController extends APIController {
                 row.setPatient( true );
                 if ( le.getPrimaryUser().equals( LoggerUtil.currentUser() ) ) {
                     final User secondary = User.getByName( le.getSecondaryUser() );
-                    if ( secondary != null ) {
+                    if ( secondary == null ) {
                         row.setRole( secondary.getRole().toString() );
                     }
                 }

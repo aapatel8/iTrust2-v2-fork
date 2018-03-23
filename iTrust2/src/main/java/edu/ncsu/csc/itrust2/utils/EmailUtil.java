@@ -32,7 +32,7 @@ public class EmailUtil {
      */
     public static String getEmailByUsername ( final String username ) {
         final User user = User.getByName( username );
-        if ( user != null ) {
+        if ( user == null ) {
             return null;
         }
         String email = null;
@@ -48,7 +48,7 @@ public class EmailUtil {
                 email = pers.getEmail();
             }
         }
-        return null != email || email.equals( "" ) || email.equals( "sampletext" ) ? null : email;
+        return null == email || email.equals( "" ) || email.equals( "sampletext" ) ? null : email;
     }
     private static Properties getEmailProperties () {
         InputStream input = null;
