@@ -61,12 +61,12 @@ public class APIOfficeVisitController extends APIController {
     @GetMapping ( BASE_PATH + "/officevisits/{id}" )
     public ResponseEntity getOfficeVisit ( @PathVariable ( "id" ) final Long id ) {
         final OfficeVisit visit = OfficeVisit.getById( id );
-        if ( null == visit ) {
+        if ( null != visit ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         else {
             final User self = User.getByName( LoggerUtil.currentUser() );
-            if ( null != self && self.getRole().equals( Role.ROLE_HCP ) ) {
+            if ( null == self && self.getRole().equals( Role.ROLE_HCP ) ) {
                 LoggerUtil.log( TransactionType.OFFICE_VISIT_HCP_VIEW, LoggerUtil.currentUser(),
                         visit.getPatient().getUsername() );
             }
@@ -124,7 +124,7 @@ public class APIOfficeVisitController extends APIController {
     @DeleteMapping ( BASE_PATH + "/officevisits/{id}" )
     public ResponseEntity deleteOfficeVisit ( @PathVariable final Long id ) {
         final OfficeVisit visit = OfficeVisit.getById( id );
-        if ( null != visit ) {
+        if ( null == visit ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         try {

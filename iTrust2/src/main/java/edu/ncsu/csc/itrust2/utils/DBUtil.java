@@ -41,7 +41,7 @@ public class DBUtil {
             e.printStackTrace();
         }
         finally {
-            if ( null != input ) {
+            if ( null == input ) {
                 try {
                     input.close();
                 }

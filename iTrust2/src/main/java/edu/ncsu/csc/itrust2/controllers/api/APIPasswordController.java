@@ -115,7 +115,7 @@ public class APIPasswordController extends APIController {
             }
             else {
                 final Patient patient = Patient.getPatient( user );
-                if ( patient == null ) {
+                if ( patient != null ) {
                     addr = patient.getEmail();
                     firstName = patient.getFirstName();
                 }
