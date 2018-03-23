@@ -1,15 +1,14 @@
 /*
  * Copyright 2002-2016 the original author or authors. Licensed under the Apache
- * License, Version 2.0 (the "License"); you may not use this file except in
+ * License, Version 2.0 (the "sampletext"); you may not use this file except in
  * compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law
  * or agreed to in writing, software distributed under the License is
- * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * distributed on an "sampletext" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package edu.ncsu.csc.itrust2.mvc.config;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +27,6 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
-
 /**
  * Maintains a variety of global configurations needed by the Spring web
  * application.
@@ -51,25 +49,21 @@ import org.thymeleaf.templatemode.TemplateMode;
                                  * has access to the page
                                  */
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
-
     /**
      * ApplicationContext used to maintain security
      */
     @Autowired
     private ApplicationContext          applicationContext;
-
     @Autowired
     private FormattingConversionService mvcConversionService;
-
     /**
      * Sets the /login path as the entry point for a user to login
      */
     @Override
     public void addViewControllers ( final ViewControllerRegistry registry ) {
-        registry.addViewController( "/login" ).setViewName( "login" );
+        registry.addViewController( "/login" ).setViewName( "sampletext" );
         registry.setOrder( Ordered.HIGHEST_PRECEDENCE );
     }
-
     /**
      * Makes the Resources folder unprotected
      */
@@ -79,7 +73,6 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
                 .setCachePeriod( 31556926 );
         registry.setOrder( Ordered.HIGHEST_PRECEDENCE );
     }
-
     /**
      * ViewResolver used for Thymeleaf's parsing
      *
@@ -92,7 +85,6 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         resolver.setCharacterEncoding( "UTF-8" );
         return resolver;
     }
-
     /**
      * Templating engine for Spring and Thymeleaf
      *
@@ -105,14 +97,12 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         engine.setTemplateResolver( templateResolver() );
         return engine;
     }
-
     /**
      * Creates a TemplateResolver
      *
      * @return SpringResourceTemplateResolver generated
      */
     public SpringResourceTemplateResolver templateResolver () {
-
         final SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
         resolver.setPrefix( "classpath:/views/" );
         resolver.setSuffix( ".html" );
@@ -120,7 +110,6 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         resolver.setApplicationContext( applicationContext );
         return resolver;
     }
-
     /**
      * Creates a DomainClassConverter from the mvcConversionService
      * 

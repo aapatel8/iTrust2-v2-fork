@@ -1,5 +1,4 @@
 package edu.ncsu.csc.itrust2.controllers.api.comm;
-
 /**
  * A class representing the 4 string values in a row of the Log Entry view.
  *
@@ -7,7 +6,6 @@ package edu.ncsu.csc.itrust2.controllers.api.comm;
  *
  */
 public class LogEntryTableRow {
-
     /** Name of primary User */
     public String  primary;
     /** Name of secondary User */
@@ -22,7 +20,6 @@ public class LogEntryTableRow {
     public boolean isPatient = false;
     /** total number of pages in the table */
     public int     numPages  = 1;
-
     /**
      * Empty constructor so that Spring is able to use this class for
      * communicating over http
@@ -30,7 +27,6 @@ public class LogEntryTableRow {
     public LogEntryTableRow () {
         // Empty Constructor
     }
-
     /**
      * Returns the number of pages in the table
      * 
@@ -39,7 +35,6 @@ public class LogEntryTableRow {
     public int getNumPages () {
         return numPages;
     }
-
     /**
      * Sets the number of pages in the table
      * 
@@ -49,7 +44,6 @@ public class LogEntryTableRow {
     public void setNumPages ( final int numPages ) {
         this.numPages = numPages;
     }
-
     /**
      * Returns whether or not this table row is being viewed by a patient
      *
@@ -58,7 +52,6 @@ public class LogEntryTableRow {
     public boolean isPatient () {
         return isPatient;
     }
-
     /**
      * Sets whether or not this table row is being viewed by a patient
      *
@@ -69,7 +62,6 @@ public class LogEntryTableRow {
     public void setPatient ( final boolean isPatient ) {
         this.isPatient = isPatient;
     }
-
     /**
      * Returns the name of the primary user
      *
@@ -78,7 +70,6 @@ public class LogEntryTableRow {
     public String getPrimary () {
         return primary;
     }
-
     /**
      * Sets the name of the primary user row
      *
@@ -88,7 +79,6 @@ public class LogEntryTableRow {
     public void setPrimary ( final String primary ) {
         this.primary = primary;
     }
-
     /**
      * Returns the name of the secondary user
      *
@@ -97,7 +87,6 @@ public class LogEntryTableRow {
     public String getSecondary () {
         return secondary;
     }
-
     /**
      * Sets the name of the secondary user
      *
@@ -107,7 +96,6 @@ public class LogEntryTableRow {
     public void setSecondary ( final String secondary ) {
         this.secondary = secondary;
     }
-
     /**
      * Returns the role of the non-patient user
      *
@@ -116,7 +104,6 @@ public class LogEntryTableRow {
     public String getRole () {
         return role;
     }
-
     /**
      * Sets the role of the non-patient user
      *
@@ -126,7 +113,6 @@ public class LogEntryTableRow {
     public void setRole ( final String role ) {
         this.role = role;
     }
-
     /**
      * Gets the date/time of the transaction in the log entry.
      *
@@ -135,7 +121,6 @@ public class LogEntryTableRow {
     public String getDateTime () {
         return dateTime;
     }
-
     /**
      * Sets the date/time of the transaction in the log entry.
      *
@@ -145,7 +130,6 @@ public class LogEntryTableRow {
     public void setDateTime ( final String dateTime ) {
         this.dateTime = dateTime;
     }
-
     /**
      * Gets the type of the transaction in the log entry.
      *
@@ -154,7 +138,6 @@ public class LogEntryTableRow {
     public String getTransactionType () {
         return transactionType;
     }
-
     /**
      * Sets the type of the transcaction in the log entry.
      *
@@ -164,5 +147,4 @@ public class LogEntryTableRow {
     public void setTransactionType ( final String transactionType ) {
         this.transactionType = transactionType;
     }
-
 }

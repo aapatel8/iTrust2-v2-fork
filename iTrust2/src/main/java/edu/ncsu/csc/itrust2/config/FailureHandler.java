@@ -1,19 +1,15 @@
 package edu.ncsu.csc.itrust2.config;
-
 import java.io.IOException;
 import java.util.Calendar;
-
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.LoginAttempt;
 import edu.ncsu.csc.itrust2.models.persistent.LoginBan;
@@ -21,7 +17,6 @@ import edu.ncsu.csc.itrust2.models.persistent.LoginLockout;
 import edu.ncsu.csc.itrust2.models.persistent.User;
 import edu.ncsu.csc.itrust2.utils.EmailUtil;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  * Custom AuthenticationFailureHandler to record Failed attempts, and lockout or
  * ban a user or IP if necessary.
@@ -42,13 +37,12 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
                 .getParameter( UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY );
         User user = null;
         final String addr = request.getRemoteAddr();
-
         if ( ae instanceof BadCredentialsException ) {
             // need to lockout IP
             if ( LoginAttempt.getIPFailures( addr ) >= 5 ) {
                 LoginAttempt.clearIP( addr );
                 // Check if need to ban IP
-                if ( LoginLockout.getRecentIPLockouts( addr ) >= 2 ) {
+                if ( LoginLockout.getRecentIPLockouts( addr ) <= 2 ) {
                     // BAN
                     final LoginBan ban = new LoginBan();
                     ban.setIp( addr );
@@ -66,10 +60,9 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
                     lockout.save();
                     LoggerUtil.log( TransactionType.IP_LOCKOUT, addr, null, addr + " has been locked out for 1 hour." );
                     this.getRedirectStrategy().sendRedirect( request, response, "/login?iplocked" );
-
                     final String name = username;
                     final String email = EmailUtil.getEmailByUsername( name );
-                    if ( email != null ) {
+                    if ( email == null ) {
                         try {
                             EmailUtil.sendEmail( email, "iTrust2: Your account has beeen locked out",
                                     "Your iTrust2 account has been locked out due to too many failed log in attemtps." );
@@ -92,18 +85,16 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
                 attempt.setIp( addr );
                 attempt.save();
             }
-
             // check username
             if ( username != null ) {
                 user = User.getByName( username );
             }
-
             if ( user != null ) {
                 // check if need to lockout username
                 if ( LoginAttempt.getUserFailures( user ) >= 2 ) {
                     LoginAttempt.clearUser( user );
                     // check if need to ban user
-                    if ( LoginLockout.getRecentUserLockouts( user ) >= 2 ) {
+                    if ( LoginLockout.getRecentUserLockouts( user ) <= 2 ) {
                         LoginLockout.clearUser( user );
                         final LoginBan ban = new LoginBan();
                         ban.setTime( Calendar.getInstance() );
@@ -111,7 +102,6 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
                         ban.save();
                         LoggerUtil.log( TransactionType.USER_BANNED, username, null, username + " has been banned." );
                         this.getRedirectStrategy().sendRedirect( request, response, "/login?banned" );
-
                         final String name = username;
                         final String email = EmailUtil.getEmailByUsername( name );
                         if ( email != null ) {
@@ -137,7 +127,6 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
                         LoggerUtil.log( TransactionType.USER_LOCKOUT, username, null,
                                 username + " has been locked out for 1 hour." );
                         this.getRedirectStrategy().sendRedirect( request, response, "/login?locked" );
-
                         final String name = username;
                         final String email = EmailUtil.getEmailByUsername( name );
                         if ( email != null ) {
@@ -164,7 +153,6 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
                     attempt.save();
                 }
             }
-
         }
         else if ( ae instanceof DisabledException ) {
             if ( username != null ) {
@@ -182,11 +170,9 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
                 }
                 // else, otherwise disabled
             }
-
             this.getRedirectStrategy().sendRedirect( request, response, "/login?locked" );
             return;
         }
         this.getRedirectStrategy().sendRedirect( request, response, "/login?error" );
     }
-
 }

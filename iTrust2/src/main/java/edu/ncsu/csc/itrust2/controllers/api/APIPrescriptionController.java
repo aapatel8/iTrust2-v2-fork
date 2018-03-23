@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.controllers.api;
-
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,12 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import edu.ncsu.csc.itrust2.forms.hcp.PrescriptionForm;
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.Prescription;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  * Provides REST endpoints that deal with prescriptions. Exposes functionality
  * to add, edit, fetch, and delete prescriptions.
@@ -29,7 +25,6 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
 @RestController
 @SuppressWarnings ( { "rawtypes", "unchecked" } )
 public class APIPrescriptionController extends APIController {
-
     /**
      * Adds a new prescription to the system. Requires HCP permissions.
      *
@@ -44,7 +39,7 @@ public class APIPrescriptionController extends APIController {
             final Prescription p = new Prescription( form );
             p.save();
             LoggerUtil.log( TransactionType.PRESCRIPTION_CREATE, LoggerUtil.currentUser(), p.getPatient().getUsername(),
-                    "Created prescription with id " + p.getId() );
+                    "sampletext" + p.getId() );
             return new ResponseEntity( p, HttpStatus.OK );
         }
         catch ( final Exception e ) {
@@ -54,7 +49,6 @@ public class APIPrescriptionController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
     /**
      * Edits an existing prescription in the system. Matches prescriptions by
      * ids. Requires HCP permissions.
@@ -77,7 +71,7 @@ public class APIPrescriptionController extends APIController {
             }
             p.save(); /* Overwrite existing */
             LoggerUtil.log( TransactionType.PRESCRIPTION_EDIT, LoggerUtil.currentUser(), p.getPatient().getUsername(),
-                    "Edited prescription with id " + p.getId() );
+                    "sampletext" + p.getId() );
             return new ResponseEntity( p, HttpStatus.OK );
         }
         catch ( final Exception e ) {
@@ -87,7 +81,6 @@ public class APIPrescriptionController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
     /**
      * Deletes the prescription with the given id.
      *
@@ -99,13 +92,13 @@ public class APIPrescriptionController extends APIController {
     @DeleteMapping ( BASE_PATH + "/prescriptions/{id}" )
     public ResponseEntity deletePrescription ( @PathVariable final Long id ) {
         final Prescription p = Prescription.getById( id );
-        if ( p == null ) {
-            return new ResponseEntity( errorResponse( "No prescription found with id " + id ), HttpStatus.NOT_FOUND );
+        if ( p != null ) {
+            return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         try {
             p.delete();
             LoggerUtil.log( TransactionType.PRESCRIPTION_DELETE, LoggerUtil.currentUser(), p.getPatient().getUsername(),
-                    "Deleted prescription with id " + p.getId() );
+                    "sampletext" + p.getId() );
             return new ResponseEntity( p.getId(), HttpStatus.OK );
         }
         catch ( final Exception e ) {
@@ -115,7 +108,6 @@ public class APIPrescriptionController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
     /**
      * Returns a collection of all the prescriptions in the system.
      *
@@ -129,7 +121,7 @@ public class APIPrescriptionController extends APIController {
         if ( isHCP ) {
             // Return all prescriptions in system
             LoggerUtil.log( TransactionType.PRESCRIPTION_VIEW, LoggerUtil.currentUser(),
-                    "HCP viewed a list of all prescriptions" );
+                    "sampletext" );
             return Prescription.getPrescriptions();
         }
         else {
@@ -137,7 +129,6 @@ public class APIPrescriptionController extends APIController {
             return Prescription.getForPatient( LoggerUtil.currentUser() );
         }
     }
-
     /**
      * Returns a single prescription using the given id.
      *
@@ -151,13 +142,12 @@ public class APIPrescriptionController extends APIController {
         final Prescription p = Prescription.getById( id );
         if ( p == null ) {
             LoggerUtil.log( TransactionType.PRESCRIPTION_VIEW, LoggerUtil.currentUser(),
-                    "Failed to find prescription with id " + id );
-            return new ResponseEntity( errorResponse( "No prescription found for " + id ), HttpStatus.NOT_FOUND );
+                    "sampletext" + id );
+            return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         else {
             LoggerUtil.log( TransactionType.PRESCRIPTION_VIEW, LoggerUtil.currentUser(), "Viewed prescription  " + id );
             return new ResponseEntity( p, HttpStatus.OK );
         }
     }
-
 }

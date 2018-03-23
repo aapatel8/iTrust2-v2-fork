@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.controllers.api;
-
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,12 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import edu.ncsu.csc.itrust2.forms.personnel.PersonnelForm;
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.Personnel;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  * Controller responsible for providing various REST API endpoints for the
  * Personnel model.
@@ -26,7 +22,6 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
 @RestController
 @SuppressWarnings ( { "rawtypes", "unchecked" } )
 public class APIPersonnelController extends APIController {
-
     /**
      * Retrieves and returns a list of all Personnel stored in the system
      *
@@ -36,7 +31,6 @@ public class APIPersonnelController extends APIController {
     public List<Personnel> getPersonnel () {
         return Personnel.getPersonnel();
     }
-
     /**
      * Retrieves and returns the Personnel with the username provided
      *
@@ -56,7 +50,6 @@ public class APIPersonnelController extends APIController {
             return new ResponseEntity( personnel, HttpStatus.OK );
         }
     }
-
     /**
      * Creates a new Personnel record for a User from the RequestBody provided.
      *
@@ -83,7 +76,6 @@ public class APIPersonnelController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
     /**
      * Updates the Personnel with the id provided by overwriting it with the new
      * Personnel record that is provided. If the ID provided does not match the
@@ -102,7 +94,7 @@ public class APIPersonnelController extends APIController {
         if ( null != personnel.getSelf() && null != personnel.getSelf().getUsername()
                 && !id.equals( personnel.getSelf().getUsername() ) ) {
             return new ResponseEntity(
-                    errorResponse( "The ID provided does not match the ID of the Personnel provided" ),
+                    errorResponse( "sampletext" ),
                     HttpStatus.CONFLICT );
         }
         final Personnel dbPersonnel = Personnel.getByName( id );
@@ -116,9 +108,8 @@ public class APIPersonnelController extends APIController {
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not update " + personnel.toString() + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + personnel.toString() + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }
-
 }

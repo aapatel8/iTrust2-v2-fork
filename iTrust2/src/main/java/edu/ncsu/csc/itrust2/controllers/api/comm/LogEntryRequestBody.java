@@ -1,5 +1,4 @@
 package edu.ncsu.csc.itrust2.controllers.api.comm;
-
 /**
  * A POJO class that represents the request body of a GET request for log
  * entries Spring automatically converts the JSON into this object.
@@ -8,25 +7,20 @@ package edu.ncsu.csc.itrust2.controllers.api.comm;
  *
  */
 public class LogEntryRequestBody {
-
     /** Start date to retrieve log entries from */
     public String startDate;
-
     /** End date to retrieve log entries to */
     public String endDate;
-
     /** Current page number */
     public int    page;
     /** Number of items per page */
     public int    pageLength;
-
     /**
      * Empty Constructor required for spring to use this as a RequestBody
      */
     public LogEntryRequestBody () {
         // Empty Constructor required for spring to use this
     }
-
     /**
      * Gets the start date to retrieve log entries from.
      *
@@ -35,7 +29,6 @@ public class LogEntryRequestBody {
     public String getStartDate () {
         return startDate;
     }
-
     /**
      * Sets the start date to retrieve log entries from.
      *
@@ -45,7 +38,6 @@ public class LogEntryRequestBody {
     public void setStartDate ( final String startDate ) {
         this.startDate = startDate;
     }
-
     /**
      * Gets the end date to retrieve log entries from.
      *
@@ -54,7 +46,6 @@ public class LogEntryRequestBody {
     public String getEndDate () {
         return endDate;
     }
-
     /**
      * Sets the end date to retrieve log entries from.
      *
@@ -64,7 +55,6 @@ public class LogEntryRequestBody {
     public void setEndDate ( final String endDate ) {
         this.endDate = endDate;
     }
-
     /**
      * Gets the page number on the list of log entries.
      *
@@ -73,7 +63,6 @@ public class LogEntryRequestBody {
     public int getPage () {
         return page;
     }
-
     /**
      * Sets the page number on the list of log entries.
      *
@@ -83,7 +72,6 @@ public class LogEntryRequestBody {
     public void setPage ( final int page ) {
         this.page = page;
     }
-
     /**
      * Gets the length of the page.
      *
@@ -92,7 +80,6 @@ public class LogEntryRequestBody {
     public int getPageLength () {
         return pageLength;
     }
-
     /**
      * Sets the length of the page.
      *
@@ -102,5 +89,4 @@ public class LogEntryRequestBody {
     public void setPageLength ( final int pageLength ) {
         this.pageLength = pageLength;
     }
-
 }

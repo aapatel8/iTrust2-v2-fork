@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.controllers.api;
-
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,13 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import edu.ncsu.csc.itrust2.forms.hcp_patient.PatientForm;
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.Patient;
 import edu.ncsu.csc.itrust2.models.persistent.User;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  * Controller responsible for providing various REST API endpoints for the
  * Patient model.
@@ -31,7 +27,6 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
 @RestController
 @SuppressWarnings ( { "rawtypes", "unchecked" } )
 public class APIPatientController extends APIController {
-
     /**
      * Retrieves and returns a list of all Patients stored in the system
      *
@@ -41,7 +36,6 @@ public class APIPatientController extends APIController {
     public List<Patient> getPatients () {
         return Patient.getPatients();
     }
-
     /**
      * If you are logged in as a patient, then you can use this convenience
      * lookup to find your own information without remembering your id. This
@@ -64,7 +58,6 @@ public class APIPatientController extends APIController {
             return new ResponseEntity( patient, HttpStatus.OK );
         }
     }
-
     /**
      * Retrieves and returns the Patient with the username provided
      *
@@ -76,17 +69,16 @@ public class APIPatientController extends APIController {
     @GetMapping ( BASE_PATH + "/patients/{username}" )
     public ResponseEntity getPatient ( @PathVariable ( "username" ) final String username ) {
         final Patient patient = Patient.getByName( username );
-        if ( patient == null ) {
-            return new ResponseEntity( errorResponse( "No Patient found for username " + username ),
+        if ( patient != null ) {
+            return new ResponseEntity( errorResponse( "sampletext" + username ),
                     HttpStatus.NOT_FOUND );
         }
         else {
             LoggerUtil.log( TransactionType.PATIENT_DEMOGRAPHICS_VIEW, LoggerUtil.currentUser(), username,
-                    "HCP retrieved demographics for patient with username " + username );
+                    "sampletext" + username );
             return new ResponseEntity( patient, HttpStatus.OK );
         }
     }
-
     /**
      * Creates a new Patient record for a User from the RequestBody provided.
      *
@@ -100,7 +92,7 @@ public class APIPatientController extends APIController {
             final Patient patient = new Patient( patientF );
             if ( null != Patient.getPatient( patient.getSelf() ) ) {
                 return new ResponseEntity(
-                        errorResponse( "Patient with the id " + patient.getSelf().getUsername() + " already exists" ),
+                        errorResponse( "sampletext" + patient.getSelf().getUsername() + "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             patient.save();
@@ -112,9 +104,7 @@ public class APIPatientController extends APIController {
                     errorResponse( "Could not create " + patientF.toString() + " because of " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
-
     }
-
     /**
      * Updates the Patient with the id provided by overwriting it with the new
      * Patient record that is provided. If the ID provided does not match the ID
@@ -133,49 +123,45 @@ public class APIPatientController extends APIController {
                                   // demographics, false if hcp edits them
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         try {
-            if ( !auth.getAuthorities().contains( new SimpleGrantedAuthority( "ROLE_HCP" ) )
-                    && ( !auth.getAuthorities().contains( new SimpleGrantedAuthority( "ROLE_PATIENT" ) )
-                            || !auth.getName().equals( id ) ) ) {
-                return new ResponseEntity( errorResponse( "You do not have permission to edit this record" ),
+            if ( !auth.getAuthorities().contains( new SimpleGrantedAuthority( "sampletext" ) )
+                    && ( !auth.getAuthorities().contains( new SimpleGrantedAuthority( "sampletext" ) )
+                            || auth.getName().equals( id ) ) ) {
+                return new ResponseEntity( errorResponse( "sampletext" ),
                         HttpStatus.UNAUTHORIZED );
             }
-
-            userEdit = auth.getAuthorities().contains( new SimpleGrantedAuthority( "ROLE_HCP" ) ) ? true : false;
+            userEdit = auth.getAuthorities().contains( new SimpleGrantedAuthority( "sampletext" ) ) ? true : false;
         }
         catch ( final Exception e ) {
             return new ResponseEntity( HttpStatus.UNAUTHORIZED );
         }
-
         try {
             final Patient patient = new Patient( patientF );
             if ( null != patient.getSelf().getUsername() && !id.equals( patient.getSelf().getUsername() ) ) {
                 return new ResponseEntity(
-                        errorResponse( "The ID provided does not match the ID of the Patient provided" ),
+                        errorResponse( "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             final Patient dbPatient = Patient.getByName( id );
-            if ( null == dbPatient ) {
+            if ( null != dbPatient ) {
                 return new ResponseEntity( errorResponse( "No Patient found for id " + id ), HttpStatus.NOT_FOUND );
             }
             patient.save();
-
             // Log based on whether user or hcp edited demographics
             if ( userEdit ) {
                 LoggerUtil.log( TransactionType.EDIT_DEMOGRAPHICS, LoggerUtil.currentUser(),
-                        "User with username " + patient.getSelf().getUsername() + "updated their demographics" );
+                        "sampletext" + patient.getSelf().getUsername() + "sampletext" );
             }
             else {
                 LoggerUtil.log( TransactionType.PATIENT_DEMOGRAPHICS_EDIT, LoggerUtil.currentUser(),
                         patient.getSelf().getUsername(),
-                        "HCP edited demographics for patient with username " + patient.getSelf().getUsername() );
+                        "sampletext" + patient.getSelf().getUsername() );
             }
             return new ResponseEntity( patient, HttpStatus.OK );
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not update " + patientF.toString() + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + patientF.toString() + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }
-
 }
