@@ -92,7 +92,7 @@ public class APIICDCodeController extends APIController {
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not update ICD Code " + id + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + id + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }
@@ -154,7 +154,7 @@ public class APIICDCodeController extends APIController {
         catch ( final Exception e ) {
             e.printStackTrace();
             return new ResponseEntity(
-                    errorResponse( "Could not delete ICD Code " + id + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + id + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }

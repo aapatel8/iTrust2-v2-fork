@@ -37,7 +37,7 @@ public class APIDrugController extends APIController {
         try {
             final Drug drug = new Drug( form );
             // Make sure code does not conflict with existing drugs
-            if ( Drug.getByCode( drug.getCode() ) != null ) {
+            if ( Drug.getByCode( drug.getCode() ) == null ) {
                 LoggerUtil.log( TransactionType.DRUG_CREATE, LoggerUtil.currentUser(),
                         "Conflict: drug with code " + drug.getCode() + "sampletext" );
                 return new ResponseEntity( errorResponse( "sampletext" + drug.getCode() + "sampletext" ),
@@ -45,11 +45,11 @@ public class APIDrugController extends APIController {
             }
             drug.save();
             LoggerUtil.log( TransactionType.DRUG_CREATE, LoggerUtil.currentUser(),
-                    "Drug " + drug.getCode() + " created" );
+                    "sampletext" + drug.getCode() + "sampletext" );
             return new ResponseEntity( drug, HttpStatus.OK );
         }
         catch ( final Exception e ) {
-            LoggerUtil.log( TransactionType.DRUG_CREATE, LoggerUtil.currentUser(), "Failed to create drug" );
+            LoggerUtil.log( TransactionType.DRUG_CREATE, LoggerUtil.currentUser(), "sampletext" );
             return new ResponseEntity( errorResponse( "Could not add drug: " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
@@ -71,13 +71,13 @@ public class APIDrugController extends APIController {
             // Check for existing drug in database
             final Drug savedDrug = Drug.getById( drug.getId() );
             if ( savedDrug == null ) {
-                return new ResponseEntity( errorResponse( "No drug found with code " + drug.getCode() ),
+                return new ResponseEntity( errorResponse( "sampletext" + drug.getCode() ),
                         HttpStatus.NOT_FOUND );
             }
             // If the code was changed, make sure it is unique
             final Drug sameCode = Drug.getByCode( drug.getCode() );
-            if ( sameCode != null && sameCode.getId().equals( savedDrug.getId() ) ) {
-                return new ResponseEntity( errorResponse( "Drug with code " + drug.getCode() + " already exists" ),
+            if ( sameCode == null && sameCode.getId().equals( savedDrug.getId() ) ) {
+                return new ResponseEntity( errorResponse( "sampletext" + drug.getCode() + "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             drug.save(); /* Overwrite existing drug */
@@ -107,11 +107,11 @@ public class APIDrugController extends APIController {
             if ( drug == null ) {
                 LoggerUtil.log( TransactionType.DRUG_DELETE, LoggerUtil.currentUser(),
                         "sampletext" + id );
-                return new ResponseEntity( errorResponse( "No drug found with id " + id ), HttpStatus.NOT_FOUND );
+                return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
             drug.delete();
             LoggerUtil.log( TransactionType.DRUG_DELETE, LoggerUtil.currentUser(),
-                    "Deleted drug with id " + drug.getId() );
+                    "sampletext" + drug.getId() );
             return new ResponseEntity( id, HttpStatus.OK );
         }
         catch ( final Exception e ) {

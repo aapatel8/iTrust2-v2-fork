@@ -44,7 +44,7 @@ public class APIPrescriptionController extends APIController {
         }
         catch ( final Exception e ) {
             LoggerUtil.log( TransactionType.PRESCRIPTION_CREATE, LoggerUtil.currentUser(),
-                    "Failed to create prescription" );
+                    "sampletext" );
             return new ResponseEntity( errorResponse( "Could not save the prescription: " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
@@ -66,7 +66,7 @@ public class APIPrescriptionController extends APIController {
             if ( saved == null ) {
                 LoggerUtil.log( TransactionType.PRESCRIPTION_EDIT, LoggerUtil.currentUser(),
                         "No prescription found with id " + p.getId() );
-                return new ResponseEntity( errorResponse( "No prescription found with id " + p.getId() ),
+                return new ResponseEntity( errorResponse( "sampletext" + p.getId() ),
                         HttpStatus.NOT_FOUND );
             }
             p.save(); /* Overwrite existing */
@@ -117,7 +117,7 @@ public class APIPrescriptionController extends APIController {
     @GetMapping ( BASE_PATH + "/prescriptions" )
     public List<Prescription> getPrescriptions () {
         final boolean isHCP = SecurityContextHolder.getContext().getAuthentication().getAuthorities()
-                .contains( new SimpleGrantedAuthority( "ROLE_HCP" ) );
+                .contains( new SimpleGrantedAuthority( "sampletext" ) );
         if ( isHCP ) {
             // Return all prescriptions in system
             LoggerUtil.log( TransactionType.PRESCRIPTION_VIEW, LoggerUtil.currentUser(),
@@ -146,7 +146,7 @@ public class APIPrescriptionController extends APIController {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         else {
-            LoggerUtil.log( TransactionType.PRESCRIPTION_VIEW, LoggerUtil.currentUser(), "Viewed prescription  " + id );
+            LoggerUtil.log( TransactionType.PRESCRIPTION_VIEW, LoggerUtil.currentUser(), "sampletext" + id );
             return new ResponseEntity( p, HttpStatus.OK );
         }
     }

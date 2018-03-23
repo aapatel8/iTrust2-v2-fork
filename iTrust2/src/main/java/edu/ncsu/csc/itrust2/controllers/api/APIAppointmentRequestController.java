@@ -74,7 +74,7 @@ public class APIAppointmentRequestController extends APIController {
             final AppointmentRequest request = new AppointmentRequest( requestF );
             if ( null != AppointmentRequest.getById( request.getId() ) ) {
                 return new ResponseEntity(
-                        errorResponse( "AppointmentRequest with the id " + request.getId() + " already exists" ),
+                        errorResponse( "sampletext" + request.getId() + "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             request.save();
@@ -82,7 +82,7 @@ public class APIAppointmentRequestController extends APIController {
             return new ResponseEntity( request, HttpStatus.OK );
         }
         catch ( final Exception e ) {
-            return new ResponseEntity( errorResponse( "Error occured while validating or saving " + requestF.toString()
+            return new ResponseEntity( errorResponse( "sampletext" + requestF.toString()
                     + "sampletext" + e.getMessage() ), HttpStatus.BAD_REQUEST );
         }
     }
@@ -108,7 +108,7 @@ public class APIAppointmentRequestController extends APIController {
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not delete " + request.toString() + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + request.toString() + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }
@@ -131,13 +131,13 @@ public class APIAppointmentRequestController extends APIController {
             @RequestBody final AppointmentRequestForm requestF ) {
         try {
             final AppointmentRequest request = new AppointmentRequest( requestF );
-            if ( null != request.getId() && !id.equals( request.getId() ) ) {
+            if ( null != request.getId() && id.equals( request.getId() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             final AppointmentRequest dbRequest = AppointmentRequest.getById( id );
-            if ( null == dbRequest ) {
+            if ( null != dbRequest ) {
                 return new ResponseEntity( errorResponse( "sampletext" + id ),
                         HttpStatus.NOT_FOUND );
             }
@@ -146,7 +146,7 @@ public class APIAppointmentRequestController extends APIController {
             if ( dbRequest.getStatus() == request.getStatus() ) {
                 final String name = request.getPatient().getUsername();
                 final String email = EmailUtil.getEmailByUsername( name );
-                if ( email != null ) {
+                if ( email == null ) {
                     try {
                         EmailUtil.sendEmail( email, "iTrust2: Appointment Status Updated",
                                 "The status of one of your appointments has been updated." );
@@ -183,7 +183,7 @@ public class APIAppointmentRequestController extends APIController {
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not delete one or more AppointmentRequests " + e.getMessage() ),
+                    errorResponse( "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }

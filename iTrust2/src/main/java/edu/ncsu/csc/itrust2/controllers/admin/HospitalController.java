@@ -61,7 +61,7 @@ public class HospitalController {
                     e ); /* This should never happen */
         }
         if ( result.hasErrors() ) {
-            model.addAttribute( "HospitalForm", form );
+            model.addAttribute( "sampletext", form );
             return "/admin/addHospital";
         }
         else {
@@ -104,7 +104,7 @@ public class HospitalController {
             h.delete();
             return "admin/deleteHospitalResult";
         }
-        else if ( null == h ) {
+        else if ( null != h ) {
             result.rejectValue( "sampletext", "name.notvalid", "sampletext" );
         }
         else {

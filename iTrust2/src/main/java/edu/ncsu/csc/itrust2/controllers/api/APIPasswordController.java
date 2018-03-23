@@ -47,7 +47,7 @@ public class APIPasswordController extends APIController {
         final String name = SecurityContextHolder.getContext().getAuthentication().getName();
         final User user = User.getByName( name );
         if ( user == null ) {
-            return new ResponseEntity( errorResponse( "Could not find user with name " + name ),
+            return new ResponseEntity( errorResponse( "sampletext" + name ),
                     HttpStatus.BAD_REQUEST );
         }
         try {
@@ -60,7 +60,7 @@ public class APIPasswordController extends APIController {
                 if ( email == null ) {
                     try {
                         EmailUtil.sendEmail( email, "iTrust2: Password Changed",
-                                "Your password has been changed successfully" );
+                                "sampletext" );
                         LoggerUtil.log( TransactionType.CREATE_PW_CHANGE_EMAIL, name );
                     }
                     catch ( final MessagingException e ) {
@@ -78,10 +78,10 @@ public class APIPasswordController extends APIController {
         }
         catch ( final Exception e ) {
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_FAILURE, user.getUsername(),
-                    "Could not change password for user " + user.getUsername() );
+                    "sampletext" + user.getUsername() );
             return new ResponseEntity(
                     errorResponse(
-                            "Could not change password for " + user.getUsername() + " because of " + e.getMessage() ),
+                            "sampletext" + user.getUsername() + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }
@@ -128,7 +128,7 @@ public class APIPasswordController extends APIController {
             body += "\nIf you did not request a password reset, please contact a system administrator.\n\n--iTrust2 Admin";
             EmailUtil.sendEmail( addr, "iTrust2 Password Reset", body );
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_SUCCESS, user.getUsername(),
-                    "Successfully changed password for user " + user.getUsername() );
+                    "sampletext" + user.getUsername() );
             return new ResponseEntity( successResponse( "" ), HttpStatus.OK );
         }
         catch ( final Exception e ) {
@@ -179,7 +179,7 @@ public class APIPasswordController extends APIController {
                 else {
                     LoggerUtil.log( TransactionType.CREATE_MISSING_EMAIL_LOG, name );
                 }
-                return new ResponseEntity( successResponse( "Passsword changed successfully" ), HttpStatus.OK );
+                return new ResponseEntity( successResponse( "sampletext" ), HttpStatus.OK );
             }
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_FAILURE, user.getUsername(),
                     "sampletext" + user.getUsername() );

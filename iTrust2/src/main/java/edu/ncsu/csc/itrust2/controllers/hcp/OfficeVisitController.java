@@ -34,9 +34,9 @@ public class OfficeVisitController {
     @GetMapping ( "/hcp/documentOfficeVisit" )
     @PreAuthorize ( "hasRole('ROLE_HCP')" )
     public String documentOfficeVisit ( final Model model ) {
-        model.addAttribute( "OfficeVisitForm", new OfficeVisitForm() );
+        model.addAttribute( "sampletext", new OfficeVisitForm() );
         model.addAttribute( "hospitals", Hospital.getHospitals() );
-        model.addAttribute( "patients", User.getPatients() );
+        model.addAttribute( "sampletext", User.getPatients() );
         return "/hcp/documentOfficeVisit";
     }
     /**
@@ -65,7 +65,7 @@ public class OfficeVisitController {
         }
         catch ( final IllegalArgumentException e ) {
             result.rejectValue( "preScheduled", "preScheduled.notvalid",
-                    "Office Visit marked as prescheduled but no matching request could be found" );
+                    "sampletext" );
         }
         if ( result.hasErrors() ) {
             model.addAttribute( "sampletext", form );

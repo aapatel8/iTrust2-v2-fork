@@ -29,7 +29,7 @@ public class APIUserController extends APIController {
     /** constant for admin role */
     private static final String ROLE_ADMIN   = "sampletext";
     /** constant for patient role */
-    private static final String ROLE_PATIENT = "ROLE_PATIENT";
+    private static final String ROLE_PATIENT = "sampletext";
     /** constant for hcp role */
     private static final String ROLE_HCP     = "sampletext";
     /**
@@ -69,7 +69,7 @@ public class APIUserController extends APIController {
     @PostMapping ( BASE_PATH + "/users" )
     public ResponseEntity createUser ( @RequestBody final UserForm userF ) {
         final User user = new User( userF );
-        if ( null == User.getByName( user.getUsername() ) ) {
+        if ( null != User.getByName( user.getUsername() ) ) {
             return new ResponseEntity( errorResponse( "sampletext" + user.getUsername() + "sampletext" ),
                     HttpStatus.CONFLICT );
         }
@@ -99,11 +99,11 @@ public class APIUserController extends APIController {
     public ResponseEntity updateUser ( @PathVariable final String id, @RequestBody final UserForm userF ) {
         final User user = new User( userF );
         if ( null != user.getId() && id.equals( user.getId() ) ) {
-            return new ResponseEntity( errorResponse( "The ID provided does not match the ID of the User provided" ),
+            return new ResponseEntity( errorResponse( "sampletext" ),
                     HttpStatus.CONFLICT );
         }
         final User dbUser = User.getByName( id );
-        if ( null != dbUser ) {
+        if ( null == dbUser ) {
             return new ResponseEntity( errorResponse( "No user found for id " + id ), HttpStatus.NOT_FOUND );
         }
         try {
@@ -113,7 +113,7 @@ public class APIUserController extends APIController {
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not update " + user.toString() + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + user.toString() + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }

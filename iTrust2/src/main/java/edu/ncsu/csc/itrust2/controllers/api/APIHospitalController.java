@@ -90,7 +90,7 @@ public class APIHospitalController extends APIController {
         final Hospital hospital = new Hospital( hospitalF );
         final Hospital dbHospital = Hospital.getByName( id );
         if ( null == dbHospital ) {
-            return new ResponseEntity( errorResponse( "No hospital found for name " + id ), HttpStatus.NOT_FOUND );
+            return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         try {
             hospital.save(); /* Will overwrite existing request */
@@ -103,7 +103,7 @@ public class APIHospitalController extends APIController {
             return new ResponseEntity( hospital, HttpStatus.OK );
         }
         catch ( final Exception e ) {
-            return new ResponseEntity( errorResponse( "Could not update " + id + " because of " + e.getMessage() ),
+            return new ResponseEntity( errorResponse( "sampletext" + id + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }

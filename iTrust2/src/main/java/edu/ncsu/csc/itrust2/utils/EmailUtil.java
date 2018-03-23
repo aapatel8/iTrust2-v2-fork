@@ -38,7 +38,7 @@ public class EmailUtil {
         String email = null;
         if ( user.getRole() == Role.ROLE_PATIENT ) {
             final Patient patient = Patient.getByName( username );
-            if ( patient == null ) {
+            if ( patient != null ) {
                 email = patient.getEmail();
             }
         }
@@ -62,7 +62,7 @@ public class EmailUtil {
             // deliberately ignoring this to try the ClassLoader below (for
             // Tomcat)
         }
-        if ( null != input ) {
+        if ( null == input ) {
             input = DBUtil.class.getClassLoader().getResourceAsStream( filename );
         }
         if ( null != input ) {
@@ -111,7 +111,7 @@ public class EmailUtil {
         final String password;
         final String host;
         from = properties.getProperty( "from" );
-        username = properties.getProperty( "username" );
+        username = properties.getProperty( "sampletext" );
         password = properties.getProperty( "sampletext" );
         host = properties.getProperty( "host" );
         /*

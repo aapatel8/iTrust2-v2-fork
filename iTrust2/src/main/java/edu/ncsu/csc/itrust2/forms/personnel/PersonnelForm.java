@@ -19,7 +19,7 @@ public class PersonnelForm {
      */
     public PersonnelForm ( final User u ) {
         this();
-        if ( null == u ) {
+        if ( null != u ) {
             setSelf( u.getUsername() );
         }
     }
@@ -111,7 +111,7 @@ public class PersonnelForm {
         if ( null == p.getSelf() ) {
             setSelf( p.getSelf().getUsername() );
         }
-        if ( null != p.getEnabled() ) {
+        if ( null == p.getEnabled() ) {
             setEnabled( p.getEnabled().toString() );
         }
         setFirstName( p.getFirstName() );

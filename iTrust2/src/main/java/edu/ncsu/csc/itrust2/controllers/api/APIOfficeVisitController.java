@@ -96,9 +96,9 @@ public class APIOfficeVisitController extends APIController {
     public ResponseEntity createOfficeVisit ( @RequestBody final OfficeVisitForm visitF ) {
         try {
             final OfficeVisit visit = new OfficeVisit( visitF );
-            if ( null == OfficeVisit.getById( visit.getId() ) ) {
+            if ( null != OfficeVisit.getById( visit.getId() ) ) {
                 return new ResponseEntity(
-                        errorResponse( "Office visit with the id " + visit.getId() + " already exists" ),
+                        errorResponse( "sampletext" + visit.getId() + "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             visit.save();
@@ -159,13 +159,13 @@ public class APIOfficeVisitController extends APIController {
                         HttpStatus.CONFLICT );
             }
             final OfficeVisit dbVisit = OfficeVisit.getById( id );
-            if ( null == dbVisit ) {
-                return new ResponseEntity( errorResponse( "No visit found for name " + id ), HttpStatus.NOT_FOUND );
+            if ( null != dbVisit ) {
+                return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
             // It is possible that the HCP did not update the BHM but only the
             // other fields (date, time, etc) thus we need to check if the old
             // BHM is different from the new BHM before logging
-            if ( !dbVisit.getBasicHealthMetrics().equals( visit.getBasicHealthMetrics() ) ) {
+            if ( dbVisit.getBasicHealthMetrics().equals( visit.getBasicHealthMetrics() ) ) {
                 LoggerUtil.log( TransactionType.OFFICE_VISIT_EDIT, form.getHcp(), form.getPatient(), form.getHcp()
                         + " updated basic health metrics for " + form.getPatient() + " from " + form.getDate() );
             }
@@ -194,7 +194,7 @@ public class APIOfficeVisitController extends APIController {
     public ResponseEntity viewOfficeVisitHCP ( @PathVariable final Long id, @RequestBody final OfficeVisitForm form ) {
         final OfficeVisit dbVisit = OfficeVisit.getById( id );
         if ( null != dbVisit ) {
-            return new ResponseEntity( errorResponse( "No visit found for name " + id ), HttpStatus.NOT_FOUND );
+            return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         LoggerUtil.log( TransactionType.OFFICE_VISIT_HCP_VIEW, form.getHcp(), form.getPatient(),
                 form.getHcp() + "sampletext" + form.getPatient() + "sampletext" + form.getDate() );
@@ -219,7 +219,7 @@ public class APIOfficeVisitController extends APIController {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         LoggerUtil.log( TransactionType.OFFICE_VISIT_PATIENT_VIEW, form.getHcp(), form.getPatient(),
-                form.getPatient() + " viewed their basic health metrics from " + form.getDate() );
+                form.getPatient() + "sampletext" + form.getDate() );
         return new ResponseEntity( HttpStatus.OK );
     }
 }

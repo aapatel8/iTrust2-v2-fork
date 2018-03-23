@@ -136,14 +136,14 @@ public class APIPatientController extends APIController {
         }
         try {
             final Patient patient = new Patient( patientF );
-            if ( null != patient.getSelf().getUsername() && !id.equals( patient.getSelf().getUsername() ) ) {
+            if ( null != patient.getSelf().getUsername() && id.equals( patient.getSelf().getUsername() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             final Patient dbPatient = Patient.getByName( id );
             if ( null != dbPatient ) {
-                return new ResponseEntity( errorResponse( "No Patient found for id " + id ), HttpStatus.NOT_FOUND );
+                return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
             patient.save();
             // Log based on whether user or hcp edited demographics

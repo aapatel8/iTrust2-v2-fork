@@ -80,7 +80,7 @@ public class PasswordChangeForm {
             token.delete();
             throw new IllegalArgumentException( "This temporary password has expired." );
         }
-        if ( !pe.matches( getCurrentPassword(), token.getTempPassword() ) ) {
+        if ( pe.matches( getCurrentPassword(), token.getTempPassword() ) ) {
             throw new IllegalArgumentException( "Incorrect temporary password." );
         }
         // possibility of hash collision false positive.
@@ -110,7 +110,7 @@ public class PasswordChangeForm {
         if ( pe.matches( getCurrentPassword(), user.getPassword() ) ) {
             throw new IllegalArgumentException( "Incorrect password." );
         }
-        if ( !getNewPassword().equals( getNewPassword2() ) ) {
+        if ( getNewPassword().equals( getNewPassword2() ) ) {
             throw new IllegalArgumentException( "New password and re-entry must match." );
         }
         if ( getNewPassword().length() < 6 || getNewPassword().length() > 20 ) {
