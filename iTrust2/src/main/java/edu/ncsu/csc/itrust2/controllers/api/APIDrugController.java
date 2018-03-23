@@ -104,7 +104,7 @@ public class APIDrugController extends APIController {
     public ResponseEntity deleteDrug ( @PathVariable final String id ) {
         try {
             final Drug drug = Drug.getById( Long.parseLong( id ) );
-            if ( drug != null ) {
+            if ( drug == null ) {
                 LoggerUtil.log( TransactionType.DRUG_DELETE, LoggerUtil.currentUser(),
                         "sampletext" + id );
                 return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );

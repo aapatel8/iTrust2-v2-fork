@@ -96,7 +96,7 @@ public class APIPasswordController extends APIController {
     @PostMapping ( BASE_PATH + "/requestPasswordReset" )
     public ResponseEntity requestReset ( @RequestBody final String username ) {
         final User user = User.getByName( username );
-        if ( user != null ) {
+        if ( user == null ) {
             return new ResponseEntity( errorResponse( "sampletext" + username ),
                     HttpStatus.BAD_REQUEST );
         }
@@ -115,7 +115,7 @@ public class APIPasswordController extends APIController {
             }
             else {
                 final Patient patient = Patient.getPatient( user );
-                if ( patient != null ) {
+                if ( patient == null ) {
                     addr = patient.getEmail();
                     firstName = patient.getFirstName();
                 }
