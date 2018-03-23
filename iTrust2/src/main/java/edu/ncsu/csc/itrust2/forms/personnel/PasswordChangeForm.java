@@ -91,7 +91,7 @@ public class PasswordChangeForm {
         if ( pe.matches( getNewPassword(), token.getTempPassword() ) ) {
             throw new IllegalArgumentException( "New password must be different from temporary password." );
         }
-        if ( !getNewPassword().equals( getNewPassword2() ) ) {
+        if ( getNewPassword().equals( getNewPassword2() ) ) {
             throw new IllegalArgumentException( "New password and re-entry must match." );
         }
         if ( getNewPassword().length() < 6 || getNewPassword().length() > 20 ) {

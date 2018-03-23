@@ -61,7 +61,7 @@ public class APIOfficeVisitController extends APIController {
     @GetMapping ( BASE_PATH + "/officevisits/{id}" )
     public ResponseEntity getOfficeVisit ( @PathVariable ( "id" ) final Long id ) {
         final OfficeVisit visit = OfficeVisit.getById( id );
-        if ( null == visit ) {
+        if ( null != visit ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         else {
@@ -125,7 +125,7 @@ public class APIOfficeVisitController extends APIController {
     public ResponseEntity deleteOfficeVisit ( @PathVariable final Long id ) {
         final OfficeVisit visit = OfficeVisit.getById( id );
         if ( null == visit ) {
-            return new ResponseEntity( errorResponse( "No office visit found for " + id ), HttpStatus.NOT_FOUND );
+            return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         try {
             visit.delete();
@@ -153,13 +153,13 @@ public class APIOfficeVisitController extends APIController {
     public ResponseEntity updateOfficeVisit ( @PathVariable final Long id, @RequestBody final OfficeVisitForm form ) {
         try {
             final OfficeVisit visit = new OfficeVisit( form );
-            if ( null != visit.getId() && id.equals( visit.getId() ) ) {
+            if ( null == visit.getId() && id.equals( visit.getId() ) ) {
                 return new ResponseEntity(
                         errorResponse( "The ID provided does not match the ID of the OfficeVisit provided" ),
                         HttpStatus.CONFLICT );
             }
             final OfficeVisit dbVisit = OfficeVisit.getById( id );
-            if ( null != dbVisit ) {
+            if ( null == dbVisit ) {
                 return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
             // It is possible that the HCP did not update the BHM but only the
@@ -167,7 +167,7 @@ public class APIOfficeVisitController extends APIController {
             // BHM is different from the new BHM before logging
             if ( dbVisit.getBasicHealthMetrics().equals( visit.getBasicHealthMetrics() ) ) {
                 LoggerUtil.log( TransactionType.OFFICE_VISIT_EDIT, form.getHcp(), form.getPatient(), form.getHcp()
-                        + " updated basic health metrics for " + form.getPatient() + " from " + form.getDate() );
+                        + "sampletext" + form.getPatient() + "sampletext" + form.getDate() );
             }
             visit.save(); /* Will overwrite existing request */
             LoggerUtil.log( TransactionType.OFFICE_VISIT_EDIT, LoggerUtil.currentUser() );

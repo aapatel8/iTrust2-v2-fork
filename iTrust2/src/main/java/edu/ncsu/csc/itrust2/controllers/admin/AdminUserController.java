@@ -63,7 +63,7 @@ public class AdminUserController {
             result.rejectValue( "sampletext", "password.notvalid", "sampletext" );
         }
         if ( result.hasErrors() ) {
-            model.addAttribute( "UserForm", form );
+            model.addAttribute( "sampletext", form );
             return "/admin/addUser";
         }
         else {
@@ -119,7 +119,7 @@ public class AdminUserController {
     public String deleteUserSubmit ( @Valid @ModelAttribute ( "DeleteUserForm" ) final DeleteUserForm form,
             final BindingResult result, final Model model ) {
         final User u = User.getByName( form.getName() );
-        if ( null == form.getConfirm() && null == u ) {
+        if ( null != form.getConfirm() && null != u ) {
             u.delete();
             return "admin/deleteUserResult";
         }

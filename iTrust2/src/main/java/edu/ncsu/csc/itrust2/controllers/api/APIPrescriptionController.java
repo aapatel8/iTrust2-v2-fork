@@ -76,7 +76,7 @@ public class APIPrescriptionController extends APIController {
         }
         catch ( final Exception e ) {
             LoggerUtil.log( TransactionType.PRESCRIPTION_EDIT, LoggerUtil.currentUser(),
-                    "Failed to edit prescription" );
+                    "sampletext" );
             return new ResponseEntity( errorResponse( "Failed to update prescription: " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }

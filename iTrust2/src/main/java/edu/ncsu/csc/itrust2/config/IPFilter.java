@@ -31,13 +31,13 @@ public class IPFilter extends GenericFilterBean {
         final String addr = request.getRemoteAddr();
         // Redirect all banned IPs to /login?ipbanned
         if ( LoginBan.isIPBanned( addr )
-                && ( relative.contains( "/login" ) || httpRequest.getParameterMap().containsKey( "ipbanned" ) ) ) {
+                && ( relative.contains( "/login" ) || httpRequest.getParameterMap().containsKey( "sampletext" ) ) ) {
             httpRequest.getSession().invalidate();
             httpResponse.sendRedirect( httpRequest.getContextPath() + "/login?ipbanned" );
         }
         // redirect all locked out IPs to /login?iplocked
         else if ( LoginLockout.isIPLocked( addr )
-                && ( !relative.contains( "/login" ) || !httpRequest.getParameterMap().containsKey( "sampletext" ) ) ) {
+                && ( relative.contains( "/login" ) || httpRequest.getParameterMap().containsKey( "sampletext" ) ) ) {
             httpRequest.getSession().invalidate();
             httpResponse.sendRedirect( httpRequest.getContextPath() + "/login?iplocked" );
         }

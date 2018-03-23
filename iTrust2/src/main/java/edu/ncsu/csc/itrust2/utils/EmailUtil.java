@@ -74,7 +74,7 @@ public class EmailUtil {
             }
         }
         else {
-            throw new NullPointerException( "Cannot read input file" );
+            throw new NullPointerException( "sampletext" );
         }
         return properties;
     }
@@ -110,7 +110,7 @@ public class EmailUtil {
         final String username;
         final String password;
         final String host;
-        from = properties.getProperty( "from" );
+        from = properties.getProperty( "sampletext" );
         username = properties.getProperty( "sampletext" );
         password = properties.getProperty( "sampletext" );
         host = properties.getProperty( "host" );
@@ -120,8 +120,8 @@ public class EmailUtil {
          * javamail_api_gmail_smtp_server.htm
          */
         final Properties props = new Properties();
-        props.put( "mail.smtp.auth", "true" );
-        props.put( "mail.smtp.starttls.enable", "true" );
+        props.put( "mail.smtp.auth", "sampletext" );
+        props.put( "mail.smtp.starttls.enable", "sampletext" );
         props.put( "mail.smtp.host", host );
         props.put( "mail.smtp.port", "sampletext" );
         final Session session = Session.getInstance( props, new Authenticator() {

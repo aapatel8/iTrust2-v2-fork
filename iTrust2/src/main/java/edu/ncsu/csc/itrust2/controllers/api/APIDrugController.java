@@ -82,11 +82,11 @@ public class APIDrugController extends APIController {
             }
             drug.save(); /* Overwrite existing drug */
             LoggerUtil.log( TransactionType.DRUG_EDIT, LoggerUtil.currentUser(),
-                    "Drug with id " + drug.getId() + " edited" );
+                    "sampletext" + drug.getId() + "sampletext" );
             return new ResponseEntity( drug, HttpStatus.OK );
         }
         catch ( final Exception e ) {
-            LoggerUtil.log( TransactionType.DRUG_EDIT, LoggerUtil.currentUser(), "Failed to edit drug" );
+            LoggerUtil.log( TransactionType.DRUG_EDIT, LoggerUtil.currentUser(), "sampletext" );
             return new ResponseEntity( errorResponse( "Could not update drug: " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }

@@ -49,9 +49,9 @@ public class APIICDCodeController extends APIController {
         try {
             final ICDCode code = ICDCode.getById( id );
             if ( code == null ) {
-                return new ResponseEntity( errorResponse( "No code with id " + id ), HttpStatus.NOT_FOUND );
+                return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
-            LoggerUtil.log( TransactionType.ICD_VIEW, LoggerUtil.currentUser(), "Fetched icd code with id " + id );
+            LoggerUtil.log( TransactionType.ICD_VIEW, LoggerUtil.currentUser(), "sampletext" + id );
             return new ResponseEntity( code, HttpStatus.OK );
         }
         catch ( final Exception e ) {
@@ -74,7 +74,7 @@ public class APIICDCodeController extends APIController {
     public ResponseEntity updateCode ( @PathVariable ( "id" ) final Long id, @RequestBody final ICDCodeForm form ) {
         try {
             final ICDCode code = ICDCode.getById( id );
-            if ( code != null ) {
+            if ( code == null ) {
                 return new ResponseEntity( "No code with id " + id, HttpStatus.NOT_FOUND );
             }
             form.setId( id );
@@ -148,7 +148,7 @@ public class APIICDCodeController extends APIController {
                 // ignore, its was a test that wasn't authenticated properly.
             }
             LoggerUtil.log( TransactionType.ICD_DELETE, LoggerUtil.currentUser(),
-                    user.getUsername() + " deleted an ICD Code" );
+                    user.getUsername() + "sampletext" );
             return new ResponseEntity( HttpStatus.OK );
         }
         catch ( final Exception e ) {

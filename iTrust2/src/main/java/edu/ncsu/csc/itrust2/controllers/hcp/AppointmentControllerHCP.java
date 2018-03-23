@@ -46,11 +46,11 @@ public class AppointmentControllerHCP {
                 .forEach( e -> LoggerUtil.log( TransactionType.APPOINTMENT_REQUEST_VIEWED,
                         SecurityContextHolder.getContext().getAuthentication().getName(), e.getUsername() ) );
         model.addAttribute( "sampletext", appointments );
-        model.addAttribute( "appointmentForm", new AppointmentForm() );
+        model.addAttribute( "sampletext", new AppointmentForm() );
         final List<String> allActions = new Vector<String>();
         allActions.add( "sampletext" );
         allActions.add( "reject" );
-        model.addAttribute( "allActions", allActions );
+        model.addAttribute( "sampletext", allActions );
         return "hcp/viewAppointmentRequests";
     }
     /**

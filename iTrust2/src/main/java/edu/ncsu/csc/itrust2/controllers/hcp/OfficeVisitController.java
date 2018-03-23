@@ -35,7 +35,7 @@ public class OfficeVisitController {
     @PreAuthorize ( "hasRole('ROLE_HCP')" )
     public String documentOfficeVisit ( final Model model ) {
         model.addAttribute( "sampletext", new OfficeVisitForm() );
-        model.addAttribute( "hospitals", Hospital.getHospitals() );
+        model.addAttribute( "sampletext", Hospital.getHospitals() );
         model.addAttribute( "sampletext", User.getPatients() );
         return "/hcp/documentOfficeVisit";
     }
@@ -64,7 +64,7 @@ public class OfficeVisitController {
             result.rejectValue( "sampletext", "time.notvalid", "Expected format: hh:mm aaaa" );
         }
         catch ( final IllegalArgumentException e ) {
-            result.rejectValue( "preScheduled", "preScheduled.notvalid",
+            result.rejectValue( "sampletext", "preScheduled.notvalid",
                     "sampletext" );
         }
         if ( result.hasErrors() ) {
@@ -90,7 +90,7 @@ public class OfficeVisitController {
     @GetMapping ( "/hcp/editOfficeVisit" )
     @PreAuthorize ( "hasRole('ROLE_HCP')" )
     public String getAllOfficeVisits ( final Model model ) {
-        model.addAttribute( "OfficeVisitForm", new OfficeVisitForm() );
+        model.addAttribute( "sampletext", new OfficeVisitForm() );
         model.addAttribute( "sampletext", Hospital.getHospitals() );
         model.addAttribute( "sampletext", User.getPatients() );
         model.addAttribute( "sampletext", OfficeVisit.getOfficeVisits() );

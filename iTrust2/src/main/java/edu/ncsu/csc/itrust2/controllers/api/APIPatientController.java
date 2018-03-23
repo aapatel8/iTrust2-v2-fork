@@ -69,7 +69,7 @@ public class APIPatientController extends APIController {
     @GetMapping ( BASE_PATH + "/patients/{username}" )
     public ResponseEntity getPatient ( @PathVariable ( "username" ) final String username ) {
         final Patient patient = Patient.getByName( username );
-        if ( patient != null ) {
+        if ( patient == null ) {
             return new ResponseEntity( errorResponse( "sampletext" + username ),
                     HttpStatus.NOT_FOUND );
         }
@@ -101,7 +101,7 @@ public class APIPatientController extends APIController {
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not create " + patientF.toString() + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + patientF.toString() + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }

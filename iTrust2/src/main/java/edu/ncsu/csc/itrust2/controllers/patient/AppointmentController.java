@@ -93,7 +93,7 @@ public class AppointmentController {
         for ( final AppointmentRequest ar : appointment ) {
             appointments.add( new AppointmentRequestForm( ar ) );
         }
-        model.addAttribute( "appointmentForm", new AppointmentForm() );
+        model.addAttribute( "sampletext", new AppointmentForm() );
         model.addAttribute( "sampletext", appointments );
         LoggerUtil.log( TransactionType.APPOINTMENT_REQUEST_VIEWED,
                 SecurityContextHolder.getContext().getAuthentication().getName() );

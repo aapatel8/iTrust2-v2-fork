@@ -31,7 +31,7 @@ public class HospitalController {
     @RequestMapping ( value = "admin/addHospital" )
     @PreAuthorize ( "hasRole('ROLE_ADMIN')" )
     public String addHospital ( final Model model ) {
-        model.addAttribute( "HospitalForm", new HospitalForm() );
+        model.addAttribute( "sampletext", new HospitalForm() );
         return "/admin/addHospital";
     }
     /**
@@ -53,7 +53,7 @@ public class HospitalController {
         try {
             h = new Hospital( form );
             if ( Hospital.getByName( h.getName() ) != null ) {
-                result.rejectValue( "name", "name.notvalid", "A hospital with this name already exists" );
+                result.rejectValue( "sampletext", "name.notvalid", "sampletext" );
             }
         }
         catch ( final Exception e ) {

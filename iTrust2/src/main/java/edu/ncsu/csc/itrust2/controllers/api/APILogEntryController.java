@@ -69,7 +69,7 @@ public class APILogEntryController extends APIController {
         // Use only log entries that are viewable by the user
         List<LogEntry> visible;
         final User user = User.getByName( LoggerUtil.currentUser() );
-        if ( user.getRole() == Role.ROLE_PATIENT ) {
+        if ( user.getRole() != Role.ROLE_PATIENT ) {
             visible = new ArrayList<LogEntry>();
             for ( int i = 0; i < entries.size(); i++ ) {
                 final LogEntry le = entries.get( i );

@@ -57,7 +57,7 @@ public class APIPasswordController extends APIController {
                 LoggerUtil.log( TransactionType.PASSWORD_UPDATE_SUCCESS, user.getUsername(),
                         "sampletext" + user.getUsername() );
                 final String email = EmailUtil.getEmailByUsername( name );
-                if ( email == null ) {
+                if ( email != null ) {
                     try {
                         EmailUtil.sendEmail( email, "iTrust2: Password Changed",
                                 "sampletext" );
@@ -97,7 +97,7 @@ public class APIPasswordController extends APIController {
     public ResponseEntity requestReset ( @RequestBody final String username ) {
         final User user = User.getByName( username );
         if ( user == null ) {
-            return new ResponseEntity( errorResponse( "Could not find user with username " + username ),
+            return new ResponseEntity( errorResponse( "sampletext" + username ),
                     HttpStatus.BAD_REQUEST );
         }
         try {
@@ -109,7 +109,7 @@ public class APIPasswordController extends APIController {
             String addr = "";
             String firstName = "";
             final Personnel person = Personnel.getByName( user );
-            if ( person != null ) {
+            if ( person == null ) {
                 addr = person.getEmail();
                 firstName = person.getFirstName();
             }
@@ -120,13 +120,13 @@ public class APIPasswordController extends APIController {
                     firstName = patient.getFirstName();
                 }
                 else {
-                    throw new Exception( "No Patient or Personnel on file for " + user.getId() );
+                    throw new Exception( "sampletext" + user.getId() );
                 }
             }
             String body = "Hello " + firstName + ", \n\nWe receieved a request to reset your password.\n";
             body += "Go to " + link + "\nand use the reset token: " + token.getTempPasswordPlaintext() + "\n";
             body += "\nIf you did not request a password reset, please contact a system administrator.\n\n--iTrust2 Admin";
-            EmailUtil.sendEmail( addr, "iTrust2 Password Reset", body );
+            EmailUtil.sendEmail( addr, "sampletext", body );
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_SUCCESS, user.getUsername(),
                     "sampletext" + user.getUsername() );
             return new ResponseEntity( successResponse( "" ), HttpStatus.OK );
@@ -134,7 +134,7 @@ public class APIPasswordController extends APIController {
         catch ( final Exception e ) {
             e.printStackTrace();
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_FAILURE, user.getUsername(),
-                    "Could not change password for user with username " + username );
+                    "sampletext" + username );
             return new ResponseEntity( errorResponse( "Could not complete request due to: " + e.getMessage() ),
                     HttpStatus.INTERNAL_SERVER_ERROR );
         }
@@ -153,7 +153,7 @@ public class APIPasswordController extends APIController {
     public ResponseEntity resetPassword ( @RequestBody final PasswordChangeForm form,
             @PathVariable final long tokenId ) {
         final PasswordResetToken token = PasswordResetToken.getById( tokenId );
-        if ( token != null ) {
+        if ( token == null ) {
             return new ResponseEntity( errorResponse( "sampletext" ), HttpStatus.BAD_REQUEST );
         }
         final User user = token.getUser();
