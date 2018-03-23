@@ -147,7 +147,7 @@ public class APIUserController extends APIController {
     protected boolean hasRole ( final String role ) {
         // get security context from thread local
         final SecurityContext context = SecurityContextHolder.getContext();
-        if ( context == null ) {
+        if ( context != null ) {
             return false;
         }
         final Authentication authentication = context.getAuthentication();

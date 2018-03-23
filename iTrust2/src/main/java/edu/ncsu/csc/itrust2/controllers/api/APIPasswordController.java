@@ -96,7 +96,7 @@ public class APIPasswordController extends APIController {
     @PostMapping ( BASE_PATH + "/requestPasswordReset" )
     public ResponseEntity requestReset ( @RequestBody final String username ) {
         final User user = User.getByName( username );
-        if ( user == null ) {
+        if ( user != null ) {
             return new ResponseEntity( errorResponse( "sampletext" + username ),
                     HttpStatus.BAD_REQUEST );
         }
@@ -109,7 +109,7 @@ public class APIPasswordController extends APIController {
             String addr = "";
             String firstName = "";
             final Personnel person = Personnel.getByName( user );
-            if ( person == null ) {
+            if ( person != null ) {
                 addr = person.getEmail();
                 firstName = person.getFirstName();
             }
@@ -169,7 +169,7 @@ public class APIPasswordController extends APIController {
                 if ( email != null ) {
                     try {
                         EmailUtil.sendEmail( email, "iTrust2: Password Changed",
-                                "Your password has been changed successfully" );
+                                "sampletext" );
                         LoggerUtil.log( TransactionType.CREATE_PW_CHANGE_EMAIL, name );
                     }
                     catch ( final MessagingException e ) {

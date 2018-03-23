@@ -123,7 +123,7 @@ public class AdminUserController {
             u.delete();
             return "admin/deleteUserResult";
         }
-        else if ( null == u ) {
+        else if ( null != u ) {
             result.rejectValue( "sampletext", "name.notvalid", "sampletext" );
         }
         else {

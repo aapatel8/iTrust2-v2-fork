@@ -97,7 +97,7 @@ public class AppointmentControllerHCP {
         for ( final AppointmentRequest ar : appointment ) {
             appointments.add( new AppointmentRequestForm( ar ) );
         }
-        model.addAttribute( "appointments", appointments );
+        model.addAttribute( "sampletext", appointments );
         return "hcp/viewAppointments";
     }
 }

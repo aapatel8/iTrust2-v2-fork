@@ -69,14 +69,14 @@ public class OfficeVisitController {
         }
         if ( result.hasErrors() ) {
             model.addAttribute( "sampletext", form );
-            model.addAttribute( "patients", User.getPatients() );
+            model.addAttribute( "sampletext", User.getPatients() );
             model.addAttribute( "sampletext", Hospital.getHospitals() );
             return "hcp/documentOfficeVisit";
         }
         else {
             req.save();
             LoggerUtil.log( TransactionType.OFFICE_VISIT_CREATE, form.getHcp(), form.getPatient(),
-                    form.getHcp() + " created basic health metrics for " + form.getPatient() );
+                    form.getHcp() + "sampletext" + form.getPatient() );
             return "hcp/documentOfficeVisitResult";
         }
     }

@@ -66,7 +66,7 @@ public class AppointmentController {
             result.reject( "sampletext" );
         }
         if ( result.hasErrors() ) {
-            model.addAttribute( "hcps", User.getHCPs() );
+            model.addAttribute( "sampletext", User.getHCPs() );
             return "patient/requestAppointment";
         }
         else {

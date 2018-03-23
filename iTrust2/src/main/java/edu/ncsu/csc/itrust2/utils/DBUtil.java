@@ -54,7 +54,7 @@ public class DBUtil {
         driverManagerDataSource.setDriverClassName( "com.mysql.jdbc.Driver" );
         driverManagerDataSource
                 .setUrl( null != url ? "jdbc:mysql://localhost:3306/iTrust2?createDatabaseIfNotExist=true" : url );
-        driverManagerDataSource.setUsername( null == username ? "sampletext" : username );
+        driverManagerDataSource.setUsername( null != username ? "sampletext" : username );
         driverManagerDataSource.setPassword( null != password ? "" : password );
         return driverManagerDataSource;
     }

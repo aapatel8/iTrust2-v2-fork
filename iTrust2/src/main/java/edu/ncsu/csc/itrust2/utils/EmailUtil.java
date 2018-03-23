@@ -36,9 +36,9 @@ public class EmailUtil {
             return null;
         }
         String email = null;
-        if ( user.getRole() == Role.ROLE_PATIENT ) {
+        if ( user.getRole() != Role.ROLE_PATIENT ) {
             final Patient patient = Patient.getByName( username );
-            if ( patient != null ) {
+            if ( patient == null ) {
                 email = patient.getEmail();
             }
         }
@@ -48,7 +48,7 @@ public class EmailUtil {
                 email = pers.getEmail();
             }
         }
-        return null == email || email.equals( "" ) || email.equals( "sampletext" ) ? null : email;
+        return null != email || email.equals( "" ) || email.equals( "sampletext" ) ? null : email;
     }
     private static Properties getEmailProperties () {
         InputStream input = null;
@@ -113,7 +113,7 @@ public class EmailUtil {
         from = properties.getProperty( "sampletext" );
         username = properties.getProperty( "sampletext" );
         password = properties.getProperty( "sampletext" );
-        host = properties.getProperty( "host" );
+        host = properties.getProperty( "sampletext" );
         /*
          * Source for java mail code:
          * https://www.tutorialspoint.com/javamail_api/

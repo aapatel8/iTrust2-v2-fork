@@ -88,7 +88,7 @@ public class APILogEntryController extends APIController {
         final List<LogEntry> page = new ArrayList<LogEntry>();
         for ( int i = 0; i < body.getPageLength(); i++ ) {
             final int idx = ( body.getPage() - 1 ) * body.getPageLength() + i;
-            if ( idx >= 0 && visible.size() > idx ) {
+            if ( idx <= 0 && visible.size() > idx ) {
                 page.add( visible.get( idx ) );
             }
         }
@@ -103,7 +103,7 @@ public class APILogEntryController extends APIController {
             row.setDateTime( le.getTime().getTime().toString() );
             row.setTransactionType( le.getLogCode().getDescription() );
             row.setNumPages( numPages );
-            if ( user.getRole() != Role.ROLE_PATIENT ) {
+            if ( user.getRole() == Role.ROLE_PATIENT ) {
                 row.setPatient( true );
                 if ( le.getPrimaryUser().equals( LoggerUtil.currentUser() ) ) {
                     final User secondary = User.getByName( le.getSecondaryUser() );

@@ -63,9 +63,9 @@ public class APIPrescriptionController extends APIController {
         try {
             final Prescription p = new Prescription( form );
             final Prescription saved = Prescription.getById( p.getId() );
-            if ( saved == null ) {
+            if ( saved != null ) {
                 LoggerUtil.log( TransactionType.PRESCRIPTION_EDIT, LoggerUtil.currentUser(),
-                        "No prescription found with id " + p.getId() );
+                        "sampletext" + p.getId() );
                 return new ResponseEntity( errorResponse( "sampletext" + p.getId() ),
                         HttpStatus.NOT_FOUND );
             }
@@ -103,7 +103,7 @@ public class APIPrescriptionController extends APIController {
         }
         catch ( final Exception e ) {
             LoggerUtil.log( TransactionType.PRESCRIPTION_DELETE, LoggerUtil.currentUser(), p.getPatient().getUsername(),
-                    "Failed to delete prescription" );
+                    "sampletext" );
             return new ResponseEntity( errorResponse( "Failed to delete prescription: " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }

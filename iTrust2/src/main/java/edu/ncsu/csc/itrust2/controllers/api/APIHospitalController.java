@@ -45,7 +45,7 @@ public class APIHospitalController extends APIController {
         if ( null != hospital ) {
             LoggerUtil.log( TransactionType.VIEW_HOSPITAL, LoggerUtil.currentUser() );
         }
-        return null != hospital
+        return null == hospital
                 ? new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( hospital, HttpStatus.OK );
     }
@@ -71,7 +71,7 @@ public class APIHospitalController extends APIController {
             return new ResponseEntity( hospital, HttpStatus.OK );
         }
         catch ( final Exception e ) {
-            return new ResponseEntity( errorResponse( "Error occured while validating or saving " + hospital.toString()
+            return new ResponseEntity( errorResponse( "sampletext" + hospital.toString()
                     + "sampletext" + e.getMessage() ), HttpStatus.BAD_REQUEST );
         }
     }

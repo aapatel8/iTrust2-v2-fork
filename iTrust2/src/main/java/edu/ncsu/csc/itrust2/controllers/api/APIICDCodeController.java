@@ -75,7 +75,7 @@ public class APIICDCodeController extends APIController {
         try {
             final ICDCode code = ICDCode.getById( id );
             if ( code == null ) {
-                return new ResponseEntity( "No code with id " + id, HttpStatus.NOT_FOUND );
+                return new ResponseEntity( "sampletext" + id, HttpStatus.NOT_FOUND );
             }
             form.setId( id );
             final ICDCode updatedCode = new ICDCode( form );
